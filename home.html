@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Weather Details </title>
+	<!-- --------- font awesome link -------------------------- -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+		integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<!-- ------------- bootstrap link -------------------------- -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!------------ internal css ------------------------------------------------------->
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+		html {
+			background-color: #eee;
+		}
+
+		.weatherBox {
+			overflow: hidden;
+			width: 300px;
+			height: 500px;
+			background-color: skyblue;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			box-shadow: 10px 8px 20px 0px rgba(128, 128, 128, 0.486);
+			border-radius: 10px;
+		}
+
+		.weatherIcon {
+			margin-top: 50px;
+			margin-bottom: 45px;
+			animation: sunAnimation 3s linear infinite alternate;
+		}
+
+		@keyframes sunAnimation {
+			from {
+				transform: scale(0.8);
+			}
+
+			to {
+				transform: scale(1.0);
+			}
+		}
+
+		.man {
+			animation: move 2s linear infinite alternate;
+
+		}
+
+		@keyframes move {
+			from {
+				transform: translateX(-0.3rem);
+			}
+
+			to {
+
+				transform: translateX(0.3rem);
+			}
+		}
+
+		.wave-1 {
+
+			z-index: -1;
+			background-color: rgb(255, 255, 255);
+			opacity: 0.3;
+			width: 450px;
+			height: 430px;
+			border-radius: 50%;
+			position: absolute;
+			top: 38%;
+			left: -81px;
+			animation: cloudMoves 1.4s linear infinite;
+		}
+
+		.wave-2 {
+			z-index: -2;
+			background-color: rgb(255, 255, 255);
+			opacity: 0.3;
+			width: 440px;
+			height: 450px;
+			border-radius: 50%;
+			position: absolute;
+			top: 33%;
+			left: -80px;
+			animation: cloudMoves 1.8s linear infinite;
+
+		}
+
+		.wave-3 {
+			z-index: -3;
+			background-color: rgb(255, 255, 255);
+			opacity: 0.3;
+			width: 450px;
+			height: 440px;
+			border-radius: 50%;
+			position: absolute;
+			top: 33%;
+			left: -39px;
+			animation: cloudMoves 2s linear infinite;
+
+		}
+
+		@keyframes cloudMoves {
+			from {
+				transform: rotate(0deg);
+			}
+
+			to {
+				transform: rotate(180deg);
+
+			}
+		}
+
+		.date,
+		.min-max-temp {
+			color: rgb(68, 66, 66);
+			font-weight: 400;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="weatherBox">
+
+		<div class="wave wave-1"></div>
+		<div class="wave wave-2"></div>
+		<div class="wave wave-3"></div>
+
+		<div class="weatherIcon text-center ">
+			{%weatherIcon%}
+		</div>
+		<div class="info text-center">
+
+			<h2 class=""><i class="man fas fa-street-view text-primary mr-2"></i>{%tempLocation%},{%tempCountry%}</h2>
+			<h6 class="date">wed oct 23 |10:50 AM</h6>
+			<h1> {%temp%}&deg;C </h1>
+			<h6 class="min-max-temp">Min : {%tempMin%}&deg;C | Max : {%tempMax%}&deg;C</h6>
+		</div>
+
+	</div>
+
+</body>
+<!-- ------------------ internal javascript ---------------------------------- -->
+<script>
+	let currDate = new Date();
+
+	function getDay() {
+		let days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		return days[currDate.getDay()];
+	}
+	function getMonth() {
+		let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sub', 'Oct', 'Nov', 'Dec'];
+		return months[currDate.getMonth()];
+	}
+	let hour = currDate.getHours();
+	let min = currDate.getMinutes();
+
+	if (min < 10)
+		min = '0' + min;
+
+	let prior = "";
+	if (hour > 12) { prior = "PM"; hour -= 12; }
+	else
+		prior = "AM";
+
+	let date = document.querySelector('.date');
+	date.innerHTML = `${getDay()} | ${getMonth()} ${currDate.getDate()} | ${hour}:${min} ${prior}`;
+
+</script>
+
+</html>
