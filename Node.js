@@ -8,7 +8,7 @@ var requests = require('requests');
 const port = process.env.port || 8000;//first process/find random port if not found then go to 8000
 
 //grab/select home.html HomeHtmlfile  
-const HomeHtmlfile = fs.readFileSync('home.html', 'UTF-8');
+const HomeHtmlfile = fs.readFileSync('index.html', 'UTF-8');
 
 const replaceHomeFileData = (tempVal, orgVal) => {
 
